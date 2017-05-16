@@ -42,8 +42,8 @@ var CHainCodeId string
 var UserEntity string
 
 func init() {
-	CHainCodeId = "f9cdb8dd8bdfb872016e67d337c41c7e66e6e264f75600fefd06fe6b4a32dd8541ba181151552566b82cadf0e06e8791962e6741607b3218c4e1812b73b5e0f2"
-	UserEntity = "user_type1_0"
+	CHainCodeId = "3aeb9793d67968f966f2b093c361c70cdbf7a2813a02f7a5da344386580d3b519899b73003b335c587e3d016d44b54eb7d8030bddddbc3e9abf05db81c20eaef"
+	UserEntity = "admin"
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) *HttpError {
@@ -78,7 +78,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) 
 		return NewErrorInternalServerError(aerr)
 	}
 
-	url := "https://22d6df1fb02147b7bb4926d1f49ae774-vp0.us.blockchain.ibm.com:5002/chaincode"
+	url := "https://74d34f81930a486d937d43cd423706a3-vp0.us.blockchain.ibm.com:5004/chaincode"
 
 	air, err := http.NewRequest("POST", url, bytes.NewReader(j))
 	air.Header.Set("Content-Type", "application/json")
@@ -188,7 +188,7 @@ func getUserHomePage(username string, w http.ResponseWriter, r *http.Request) *H
 		return NewErrorInternalServerError(aerr)
 	}
 
-	url := "https://22d6df1fb02147b7bb4926d1f49ae774-vp0.us.blockchain.ibm.com:5002/chaincode"
+	url := "https://74d34f81930a486d937d43cd423706a3-vp0.us.blockchain.ibm.com:5004/chaincode"
 
 	air, err := http.NewRequest("POST", url, bytes.NewReader(j))
 	air.Header.Set("Content-Type", "application/json")
@@ -302,7 +302,7 @@ func createUserHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Par
 		return NewErrorInternalServerError(aerr)
 	}
 
-	url := "https://22d6df1fb02147b7bb4926d1f49ae774-vp0.us.blockchain.ibm.com:5002/chaincode"
+	url := "https://74d34f81930a486d937d43cd423706a3-vp0.us.blockchain.ibm.com:5004/chaincode"
 
 	air, err := http.NewRequest("POST", url, bytes.NewReader(j))
 	air.Header.Set("Content-Type", "application/json")
@@ -415,8 +415,8 @@ func getUsers(r *http.Request) ([]string, error) {
 
 	body.Params.Type = 1
 
-	body.Params.ChainCode.Name = CHainCodeId //add chaincode Id here
-	body.Params.SecureContext = UserEntity   //add value for valid user type 0
+	body.Params.ChainCode.Name = 3aeb9793d67968f966f2b093c361c70cdbf7a2813a02f7a5da344386580d3b519899b73003b335c587e3d016d44b54eb7d8030bddddbc3e9abf05db81c20eaef //add chaincode Id here
+	body.Params.SecureContext = admin   //add value for valid user type 0
 
 	body.Params.CtorMsg.Function = "read"
 	body.Params.CtorMsg.Args = append(body.Params.CtorMsg.Args, "users")
@@ -426,7 +426,7 @@ func getUsers(r *http.Request) ([]string, error) {
 		return nil, aerr
 	}
 
-	url := "https://22d6df1fb02147b7bb4926d1f49ae774-vp0.us.blockchain.ibm.com:5002/chaincode"
+	url := "https://74d34f81930a486d937d43cd423706a3-vp0.us.blockchain.ibm.com:5004/chaincode"
 
 	air, err := http.NewRequest("POST", url, bytes.NewReader(j))
 	air.Header.Set("Content-Type", "application/json")
@@ -505,8 +505,8 @@ func transferMoney(firstUser string, secondUser string, amount string, r *http.R
 
 	body.Params.Type = 1
 
-	body.Params.ChainCode.Name = CHainCodeId
-	body.Params.SecureContext = UserEntity //add value for valid user type 0
+	body.Params.ChainCode.Name =3aeb9793d67968f966f2b093c361c70cdbf7a2813a02f7a5da344386580d3b519899b73003b335c587e3d016d44b54eb7d8030bddddbc3e9abf05db81c20eaef
+	body.Params.SecureContext = admin //add value for valid user type 0
 
 	body.Params.CtorMsg.Function = "transaction"
 	body.Params.CtorMsg.Args = append(body.Params.CtorMsg.Args, firstUser)
@@ -518,7 +518,7 @@ func transferMoney(firstUser string, secondUser string, amount string, r *http.R
 		return aerr
 	}
 
-	url := "https://22d6df1fb02147b7bb4926d1f49ae774-vp0.us.blockchain.ibm.com:5002/chaincode"
+	url := "https://74d34f81930a486d937d43cd423706a3-vp0.us.blockchain.ibm.com:5004/chaincode"
 
 	air, err := http.NewRequest("POST", url, bytes.NewReader(j))
 	air.Header.Set("Content-Type", "application/json")
